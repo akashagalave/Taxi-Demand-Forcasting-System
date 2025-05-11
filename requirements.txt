@@ -12,3 +12,8 @@ dask[diagnostics]
 graphviz
 ipycytoscape
 scikit-learn
+mlflow
+xgboost
+dagshub
+optuna
+plotly
