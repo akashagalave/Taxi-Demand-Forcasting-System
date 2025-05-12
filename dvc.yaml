@@ -24,3 +24,12 @@ stages:
     outs:
       - ./data/processed/train.csv
       - ./data/processed/test.csv
+
+  train_model:
+    cmd: python ./src/model/train_model.py
+    deps:
+      - ./src/model/train_model.py
+      - ./data/processed/train.csv
+    outs:
+      - ./models/encoder.joblib
+      - ./models/model.joblib
