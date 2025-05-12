@@ -19,3 +19,4 @@ optuna
 plotly
 streamlit
 pytest
+dvc[s3]
