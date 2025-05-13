@@ -30,10 +30,15 @@ jobs:
 
       - name: Configure DVC Remote
         run: |
-          dvc remote add -d origin s3://taxi-demand-prediction  # Set the correct DVC remote
+          dvc remote add -d origin s3://taxi-demand-prediction
           dvc remote modify origin access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           dvc remote modify origin secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           dvc pull
+
+      - name: Verify DVC Data Pulled Successfully
+        run: |
+          ls -R data/
+          test -f data/external/plot_data.csv || (echo "❌ plot_data.csv not found!" && exit 1)
 
       - name: Test Model Registry
         env:
@@ -60,7 +65,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
-       
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
