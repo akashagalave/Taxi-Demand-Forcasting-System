@@ -79,9 +79,14 @@ target/
 # exclude data from source control by default
 # Ignore everything in data
 # Ignore everything in data
+# Ignore all data files
+# Ignore all files in the data directory
 /data/*
+
+# But track the .dvc files in the external directory
 !/data/external/
 !/data/external/*.dvc
+
 
 
 
