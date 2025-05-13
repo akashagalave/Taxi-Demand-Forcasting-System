@@ -6,8 +6,7 @@ echo "Logging in to ECR..."
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 868402157267.dkr.ecr.ap-south-1.amazonaws.com
 
 echo "Pulling Docker image..."
-docker pull  868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
-
+docker pull 868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
 
 echo "Checking for existing container..."
 if [ "$(docker ps -q -f name=demand-prediction)" ]; then
@@ -21,6 +20,19 @@ if [ "$(docker ps -aq -f name=demand-prediction)" ]; then
 fi
 
 echo "Starting new container..."
-docker run --name demand-prediction -d -p 80:8000 -e DAGSHUB_USER_TOKEN=c0b55ec2a7cd91557d2cbb386b73e314cad6dd16 868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
+docker run --name demand-prediction -d \
+  -p 80:8000 \
+  -e DAGSHUB_USER_TOKEN=c0b55ec2a7cd91557d2cbb386b73e314cad6dd16 \
+  868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
 
-echo "Container started successfully."
+# Wait for container to fully initialize
+sleep 5
+
+echo "Running 'dvc pull' inside the container..."
+docker exec demand-prediction dvc pull
+
+echo "Restarting the app (optional, only if needed)..."
+# Uncomment if your app doesn't auto-restart after dvc pull
+# docker restart demand-prediction
+
+echo "Deployment complete. Container started successfully."
