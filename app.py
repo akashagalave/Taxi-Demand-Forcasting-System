@@ -30,7 +30,8 @@ model = mlflow.sklearn.load_model(model_path)
 # set the root path
 root_path = Path(__file__).parent
 # path of the data
-plot_data_path = root_path / "data/external/plot_data.csv"
+plot_data_path = 'data/external/plot_data.csv'
+
 data_path = root_path / "data/processed/test.csv"
 
 # model paths
