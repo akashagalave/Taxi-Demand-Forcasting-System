@@ -8,10 +8,16 @@ WORKDIR /app/
 COPY requirements-docker.txt .
 RUN pip install -r requirements-docker.txt
 
+# Install DVC inside Docker container
+RUN pip install dvc[s3]
+
 # copy everything (code, models, DVC metadata, etc.)
 COPY . .
 
-# expose the port on the container
+# pull DVC data from remote
+RUN dvc pull && dvc checkout
+
+# expose the port
 EXPOSE 8000
 
 # run the streamlit app
