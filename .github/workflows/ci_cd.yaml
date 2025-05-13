@@ -1,6 +1,6 @@
 name: CI-CD
 
-on: 
+on:
   push:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12.7'
-          cache: 'pip' 
+          cache: 'pip'
 
       - name: Install Packages
         run: |
@@ -28,8 +28,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: DVC Pull
+      - name: Configure DVC Remote
         run: |
+          dvc remote add -d origin s3://taxi-demand-prediction  # Set the correct DVC remote
+          dvc remote modify origin access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          dvc remote modify origin secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           dvc pull
 
       - name: Test Model Registry
