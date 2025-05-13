@@ -6,7 +6,6 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-TAXI
 .Python
 env/
 build/
@@ -77,19 +76,11 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-# Ignore everything in data
-# Ignore everything in data
-# Ignore all data files
-# Ignore all files in the data directory
-/data/*
 
-# But track the .dvc files in the external directory
-!/data/external/
-!/data/external/*.dvc
-
-
-
-
+/data/raw/
+/data/interim/
+/data/processed/
+TAXI
 
 # Mac OS-specific storage files
 .DS_Store
@@ -100,4 +91,7 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+# environment
+.venv/
 /run_information.json

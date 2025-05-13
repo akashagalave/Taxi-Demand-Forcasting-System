@@ -18,7 +18,7 @@ echo "Running new container with mounted /app..."
 docker run -d \
   --name taxi-demand-container \
   -p 80:80 \
-  -v /home/ubuntu/app:/app \  # this mounts host's /app inside container
+  -v /home/ubuntu/app:/app \
   -w /app \
   868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest \
   streamlit run app.py
