@@ -4,21 +4,19 @@ FROM python:3.12.7
 # set the working directory
 WORKDIR /app/
 
-# copy requirements first and install them
+# copy requirements and install
 COPY requirements-docker.txt .
-RUN pip install -r requirements-docker.txt
+RUN pip install --upgrade pip && pip install -r requirements-docker.txt
 
-# Install DVC inside Docker container
+# install DVC with S3 support
 RUN pip install dvc[s3]
 
-# copy everything (code, models, DVC metadata, etc.)
+# copy everything including DVC metadata and tracked files
 COPY . .
 
-# pull DVC data from remote
+# make sure you're inside a DVC repo now
 RUN dvc pull && dvc checkout
 
-# expose the port
+# expose port and run Streamlit
 EXPOSE 8000
-
-# run the streamlit app
 CMD ["streamlit", "run", "app.py", "--server.port", "8000", "--server.address", "0.0.0.0"]

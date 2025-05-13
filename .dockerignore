@@ -1,9 +1,6 @@
-**/__pycache__/
-**/.ipynb_checkpoints/
-.git
-.dvc/cache
-.dvc/tmp
-*.dvc
-.env
-*.log
-tests/
+# Remove or comment these lines
+#.dvc/
+#data/
+
+# Optional: allow specific file
+!data/external/plot_data.csv
