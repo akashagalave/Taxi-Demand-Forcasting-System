@@ -11,9 +11,6 @@ RUN pip install -r requirements-docker.txt
 # copy everything (code, models, DVC metadata, etc.)
 COPY . .
 
-# pull DVC data from remote
-RUN dvc pull && dvc checkout
-
 # expose the port on the container
 EXPOSE 8000
 
