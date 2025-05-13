@@ -38,7 +38,7 @@ jobs:
       - name: Verify DVC Data Pulled Successfully
         run: |
           ls -R data/
-          test -f data/external/plot_data.csv || (echo "❌ plot_data.csv not found!" && exit 1)
+          test -f data/external/plot_data.csv || (echo " plot_data.csv not found!" && exit 1)
 
       - name: Test Model Registry
         env:
