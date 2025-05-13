@@ -78,6 +78,7 @@ target/
 
 # exclude data from source control by default
 # Ignore everything in data
+# Ignore everything in data
 /data/*
 !/data/external/
 !/data/external/*.dvc
