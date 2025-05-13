@@ -6,3 +6,4 @@ joblib
 streamlit
 dagshub
 mlflow
+dvc[s3]
