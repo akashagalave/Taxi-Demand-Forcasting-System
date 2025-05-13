@@ -79,7 +79,8 @@ target/
 
 /data/raw/
 /data/interim/
-/data/processed/
+
+
 TAXI
 
 # Mac OS-specific storage files

@@ -1,16 +1,27 @@
+# set up the base image
 FROM python:3.12.7
 
+# set the working directory
 WORKDIR /app/
 
+# copy the requirements file to workdir
 COPY requirements-docker.txt .
 
-# Install Python dependencies and DVC
-RUN pip install --upgrade pip && pip install -r requirements-docker.txt
+# install the requirements
+RUN pip install -r requirements-docker.txt
 
-# Copy the entire project including DVC data (already pulled in CI/CD)
-COPY . .
+# copy the data files
+COPY ./data/external/plot_data.csv ./data/external/plot_data.csv 
+COPY ./data/processed/test.csv ./data/processed/test.csv
 
-# Expose port and run Streamlit
+# copy the models
+COPY ./models/ ./models/ 
+
+# copy the code files
+COPY ./app.py ./app.py
+
+# expose the port on the container
 EXPOSE 8000
 
-CMD ["streamlit", "run", "app.py", "--server.port", "8000", "--server.address", "0.0.0.0"]
+# run the streamlit app
+CMD [ "streamlit", "run", "app.py", "--server.port", "8000", "--server.address", "0.0.0.0"]
