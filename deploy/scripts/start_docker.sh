@@ -1,5 +1,4 @@
 #!/bin/bash
-# Log everything to start_docker.log
 exec > /home/ubuntu/start_docker.log 2>&1
 
 echo "Logging in to ECR..."
@@ -8,31 +7,21 @@ aws ecr get-login-password --region ap-south-1 | docker login --username AWS --p
 echo "Pulling Docker image..."
 docker pull 868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
 
-echo "Checking for existing container..."
-if [ "$(docker ps -q -f name=demand-prediction)" ]; then
-    echo "Stopping existing container..."
-    docker stop demand-prediction
-fi
-
-if [ "$(docker ps -aq -f name=demand-prediction)" ]; then
-    echo "Removing existing container..."
-    docker rm demand-prediction
-fi
+echo "Cleaning up existing container..."
+docker stop demand-prediction || true
+docker rm demand-prediction || true
 
 echo "Starting new container..."
-docker run --name demand-prediction -d \
-  -p 80:8000 \
+docker run --name demand-prediction -d -p 80:8000 \
+  -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+  -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
   -e DAGSHUB_USER_TOKEN=c0b55ec2a7cd91557d2cbb386b73e314cad6dd16 \
   868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
 
-# Wait for container to fully initialize
-sleep 5
-
-echo "Running 'dvc pull' inside the container..."
+echo "Running dvc pull inside the container..."
 docker exec demand-prediction dvc pull
 
-echo "Restarting the app (optional, only if needed)..."
-# Uncomment if your app doesn't auto-restart after dvc pull
-# docker restart demand-prediction
+echo "Restarting container to reflect data changes..."
+docker restart demand-prediction
 
-echo "Deployment complete. Container started successfully."
+echo "Deployment successful."
