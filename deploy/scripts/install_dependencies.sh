@@ -16,8 +16,8 @@ sudo systemctl enable docker
 # Install necessary utilities
 sudo apt-get install -y unzip curl git python3-pip
 
-# Install DVC (system-wide or in venv)
-pip3 install dvc[s3]  # or dvc[gdrive], dvc[gs], etc., based on your remote
+# Install DVC (with appropriate remote, e.g., S3)
+pip3 install dvc[s3]
 
 # Download and install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/home/ubuntu/awscliv2.zip"
@@ -27,9 +27,11 @@ sudo /home/ubuntu/aws/install
 # Add ubuntu user to docker group
 sudo usermod -aG docker ubuntu
 
-# Pull DVC data (important step!)
+# CHANGE 1: Move into the right project directory
 cd /home/ubuntu/app
-dvc pull -r origin || echo "DVC pull failed"
+
+# CHANGE 2: Run plain dvc pull (without -r origin)
+dvc pull || echo "DVC pull failed"
 
 # Clean up the AWS CLI installation files
 rm -rf /home/ubuntu/awscliv2.zip /home/ubuntu/aws
