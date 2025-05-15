@@ -14,11 +14,10 @@ echo "Stopping existing container..."
 docker stop taxi-demand-container || true
 docker rm taxi-demand-container || true
 
-echo "Running new container with mounted /app..."
+echo "Running new container..."
 docker run -d \
   --name taxi-demand-container \
   -p 80:80 \
-  -v /home/ubuntu/app:/app \
   -w /app \
   868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest \
   streamlit run app.py
