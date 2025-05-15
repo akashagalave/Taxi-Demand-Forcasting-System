@@ -1,28 +1,25 @@
 #!/bin/bash
+# Log everything to start_docker.log
 exec > /home/ubuntu/start_docker.log 2>&1
 
-echo "Cleaning up old Docker containers and images..."
-docker system prune -af
-
-echo "Logging in to Amazon ECR..."
+echo "Logging in to ECR..."
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 868402157267.dkr.ecr.ap-south-1.amazonaws.com
 
-echo "Pulling latest Docker image..."
+echo "Pulling Docker image..."
 docker pull 868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest
 
-echo "Stopping existing container..."
-docker stop taxi-demand-container || true
-docker rm taxi-demand-container || true
+echo "Checking for existing container..."
+if [ "$(docker ps -q -f name=taxi-demand-container)" ]; then
+    echo "Stopping existing container..."
+    docker stop taxi-demand-container
+fi
 
-echo "Listing /app directory before running Streamlit..."
-ls -R /app
+if [ "$(docker ps -aq -f name=taxi-demand-container)" ]; then
+    echo "Removing existing container..."
+    docker rm taxi-demand-container
+fi
 
-echo "Running new container..."
-docker run -d \
-    --name taxi-demand-container \
-    -p 80:8000 \
-    -w /app \
-    868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest \
-    streamlit run app.py
+echo "Starting new container..."
+docker run --name taxi-demand-container -d -p 80:8000 -e DAGSHUB_USER_TOKEN=c0b55ec2a7cd91557d2cbb386b73e314cad6dd16 -w /app 868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest streamlit run app.py
 
-echo "Deployment completed successfully."
+echo "Container started successfully."
