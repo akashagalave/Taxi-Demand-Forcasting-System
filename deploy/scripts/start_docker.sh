@@ -19,10 +19,10 @@ ls -R /app
 
 echo "Running new container..."
 docker run -d \
-  --name taxi-demand-container \
-  -p 80:80 \
-  -w /app \
-  868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest \
-  streamlit run app.py
+    --name taxi-demand-container \
+    -p 80:8000 \
+    -w /app \
+    868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest \
+    streamlit run app.py
 
 echo "Deployment completed successfully."
