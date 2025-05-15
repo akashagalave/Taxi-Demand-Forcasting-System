@@ -14,6 +14,9 @@ echo "Stopping existing container..."
 docker stop taxi-demand-container || true
 docker rm taxi-demand-container || true
 
+echo "Listing /app directory before running Streamlit..."
+ls -R /app
+
 echo "Running new container..."
 docker run -d \
   --name taxi-demand-container \
