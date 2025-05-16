@@ -2,16 +2,6 @@
 # Log everything to start_docker.log
 exec > /home/ubuntu/start_docker.log 2>&1
 
-echo "Current working directory at start of script: $(pwd)"
-
-echo "Changing directory to /home/ubuntu/app..."
-cd /home/ubuntu/app
-
-echo "Current working directory after cd: $(pwd)"
-
-echo "Listing /app directory before running Streamlit..."
-ls -R /app
-
 echo "Logging in to ECR..."
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 868402157267.dkr.ecr.ap-south-1.amazonaws.com
 

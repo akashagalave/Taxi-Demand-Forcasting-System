@@ -5,25 +5,20 @@ FROM python:3.12.7
 WORKDIR /app/
 
 # copy the requirements file to workdir
-COPY requirements-docker.txt .
+COPY requirement-docker.txt .
 
 # install the requirements
-RUN pip install -r requirements-docker.txt
-
-# create data directories
-RUN mkdir -p data/external
-RUN mkdir -p data/processed
-RUN mkdir models
+RUN pip install -r requirement-docker.txt
 
 # copy the data files
-COPY ./data/external/plot_data.csv ./data/external/
-COPY ./data/processed/test.csv ./data/processed/
+COPY ./data/external/plot_data.csv ./data/external/plot_data.csv 
+COPY ./data/processed/test.csv ./data/processed/test.csv
 
 # copy the models
-COPY ./models/ ./models/
+COPY ./models/ ./models/ 
 
 # copy the code files
-COPY ./app.py ./
+COPY ./app.py ./app.py
 
 # expose the port on the container
 EXPOSE 8000
