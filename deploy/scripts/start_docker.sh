@@ -20,6 +20,6 @@ if [ "$(docker ps -aq -f name=taxi-demand-container)" ]; then
 fi
 
 echo "Starting new container..."
-docker run --name taxi-demand-container -d -p 80:8000 -e DAGSHUB_USER_TOKEN=c0b55ec2a7cd91557d2cbb386b73e314cad6dd16 -w /app 868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest streamlit run app.py
+docker run --name taxi-demand-container -d -p 80:8000 -e DAGSHUB_USER_TOKEN=c0b55ec2a7cd91557d2cbb386b73e314cad6dd16  868402157267.dkr.ecr.ap-south-1.amazonaws.com/taxi-demand-prediction:latest streamlit run app.py
 
 echo "Container started successfully."

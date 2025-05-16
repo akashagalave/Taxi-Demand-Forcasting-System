@@ -95,9 +95,9 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws deploy create-deployment \
-            --application-name taxi-demand-application \
+            --application-name Taxi-Demand-Application \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name taxi-demand-application-group \
+            --deployment-group-name Taxi-Demand-Application-Group \
             --s3-location bucket=taxi-demand-prediction-deployment,key=deployment.zip,bundleType=zip \
             --file-exists-behavior OVERWRITE \
             --region ap-south-1
