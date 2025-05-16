@@ -5,10 +5,10 @@ FROM python:3.12.7
 WORKDIR /app/
 
 # copy the requirements file to workdir
-COPY requirement-docker.txt .
+COPY requirements-docker.txt .
 
 # install the requirements
-RUN pip install -r requirement-docker.txt
+RUN pip install -r requirements-docker.txt
 
 # copy the data files
 COPY ./data/external/plot_data.csv ./data/external/plot_data.csv 
