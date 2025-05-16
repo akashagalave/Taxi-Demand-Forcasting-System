@@ -1,57 +1,159 @@
-Taxi Demand Prediction System
-==============================
-
-End To End MLOps Project For Taxi Demand Prediction
-
-Project Organization
-------------
-
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
 
---------
+---
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+<h1 align="center">🚖 NYC Uber Demand Predictor</h1>
+
+<p align="center">
+  <b>Forecasting Uber demand across New York City — every 15 minutes, every neighborhood.</b><br/>
+  <i>From historical ride data to real-time maps — empowering smarter, data-driven urban mobility.</i>
+</p>
+
+---
+
+## 🔍 Overview
+
+This is a real-time, ML-powered application that predicts **Uber demand for the next 15 minutes** across NYC regions. Developed using **Streamlit**, and deployed with a **scalable AWS infrastructure**, it enables Uber drivers, fleet managers, and planners to anticipate demand — not just react to it.
+
+---
+
+## 💼 Problem Statement
+
+Urban ride demand changes by the minute. Without timely predictions, Uber drivers miss out on pickups, while fleet operations struggle with inefficiencies.
+
+---
+
+## 🎯 Objective
+
+* Predict **15-minute future Uber demand** using spatiotemporal features
+* Train on **January–February 2016** data and forecast **March 2016**
+* Deploy with a **Streamlit UI**, powered by a **Dockerized ML backend**
+* Enable **real-time insights** for drivers and fleet operators
+* Implement **auto-scaled, CI/CD-enabled** infrastructure using AWS services
+
+---
+
+## 💡 Business Impact
+
+| 🧑‍🤝‍🧑 Stakeholder      | 📈 Value Delivered                                                             |
+| ------------------------- | ------------------------------------------------------------------------------ |
+| 🚕 **Uber Drivers**       | Know where demand is about to surge — increase chances of pickups and earnings |
+| 🚗 **Fleet Managers**     | Position vehicles proactively to reduce idle time and fuel consumption         |
+| 🏙️ **Urban Planners**    | Analyze near-real-time rider behavior to optimize traffic and event strategies |
+| 📊 **Data Analysts**      | Explore NYC’s ride-hailing patterns at 15-minute granularity                   |
+| 💼 **Uber as a Business** | Improves service availability and maximizes utilization across the city        |
+
+---
+
+## 🧠 ML Intelligence
+
+| Component     | Description                                           |
+| ------------- | ----------------------------------------------------- |
+| Model         | `GradientBoostingRegressor`                           |
+| Target        | Uber pickups for the **next 15 minutes**              |
+| Features      | Timestamp (date + time), neighborhood region          |
+| Training Data | Jan–Feb 2016 Uber pickup data                         |
+| Versioning    | `DVC` for pipelines, `MLflow` for experiment tracking |
+| Output        | Real-time prediction mapped to region and time        |
+
+---
+
+
+
+---
+
+## 🗺️ App Features
+
+* 🖥️ **Streamlit-Based Web App**
+* ⏱️ Predicts demand for the **next 15-minute window**
+* 🗺️ Map selection: Complete NYC or region-specific
+* 📅 Select any **date/time** from March 2016
+* 📦 Dockerized ML backend
+* 🧪 Fully reproducible experiments with tracked metrics
+
+---
+
+## ☁️ Cloud Architecture (AWS)
+
+| Component                 | Description                                      |
+| ------------------------- | ------------------------------------------------ |
+| 🐳 **Docker**             | Containerized backend and frontend               |
+| 🧠 **Flask API**          | Serves model inference to Streamlit UI           |
+| ☁️ **AWS EC2**            | Hosts the application in a scalable VM instance  |
+| ⚖️ **Load Balancer**      | Distributes traffic for high availability        |
+| 📈 **Auto Scaling Group** | Scales EC2 instances up/down based on usage      |
+| 🧬 **Launch Template**    | Ensures consistent EC2 instance configuration    |
+| 🚀 **AWS CodeDeploy**     | Enables continuous deployment via CI/CD pipeline |
+
+---
+
+## 🎥 Live Demo – Proof of Deployment
+
+▶️ **Watch the App Running on AWS**
+[![Watch the Demo](Demo_Video/demo-thumbnail.png)](https://youtu.be/3qjKD__omR0)
+
+
+> The video demonstrates the complete cloud deployment — Streamlit frontend, Docker backend, and CI/CD pipeline with load-balanced autoscaling on AWS.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer           | Tools & Frameworks                                                              |
+| --------------- | ------------------------------------------------------------------------------- |
+| **ML Modeling** | `GradientBoostingRegressor`, `scikit-learn`, `pandas`, `joblib`                 |
+| **MLOps**       | `DVC`, `MLflow`, `Git`, versioned pipelines                                     |
+| **Frontend**    | `Streamlit` for fast, clean, interactive UI                                     |
+| **Deployment**  | `Docker`, `AWS EC2`, `ECR`, `Load Balancer`, `Auto Scaling Group`, `CodeDeploy` |
+
+---
+
+## 🧪 Run Locally – Try It Yourself
+
+### 1️⃣ Start the App
+
+```bash
+git clone https://github.com/your-username/nyc-uber-demand-predictor.git
+cd nyc-uber-demand-predictor
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+The app will launch at `http://localhost:8000`.
+
+---
+
+### 2️⃣ Use the Interface
+
+* Select a **region**
+* Pick a **date & time**
+* View **predicted ride demand** for the **next 15 minutes** on the map
+
+---
+
+## 📁 Data Overview
+
+* 📍 **Source**: NYC Uber pickup data (Jan–Mar 2016)
+* 📊 **Columns**: `Date`, `Time`, `Region`, `Trip Count`
+* 🧹 Cleaned, time-split, and grouped for 15-minute interval modeling
+
+---
+
+
+---
+
+## 📌 Project Status
+
+✅ Deployed with autoscaling and CI/CD
+📹 Demo recorded on live AWS infrastructure
+📦 Currently offline (infra shut down for cost control)
+💻 Fully reproducible via local environment
+
+---
+
+## 🙌 Built With Grit By
+
+👨‍💻 [Akash Agalave](https://github.com/akashagalave)
+
+---
+
