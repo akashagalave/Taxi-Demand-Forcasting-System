@@ -113,8 +113,8 @@ Urban ride demand changes by the minute. Without timely predictions, Uber driver
 ### 1️⃣ Start the App
 
 ```bash
-git clone https://github.com/akashagalave/Taxi-Demand-Prediction-System.git
-cd Taxi-Demand-Prediction-System
+git clone https://github.com/akashagalave/Taxi-Demand-Forecasting-System.git
+cd Taxi-Demand-Forecasting-System
 pip install -r requirements.txt
 streamlit run app.py
 ```
